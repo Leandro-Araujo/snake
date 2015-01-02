@@ -1,0 +1,104 @@
+import pygame
+import random
+
+pygame.init()
+
+black = [ 0 , 0 , 0]
+white = [255 ,255 ,255]
+foodx = random.randrange(0, 500)
+foody = random.randrange(0, 500)
+snakex = []
+snakey = []
+snakex.append(0)
+snakey.append(0)
+
+size =[1000 ,600]
+screen = pygame.display.set_mode( size )
+pygame.display.set_caption( "Snake" )
+screen.fill(white)
+clock = pygame.time.Clock()
+
+done = False
+
+cont = 0
+dir = 'dir'
+while done == False :
+	screen.fill(white)
+
+
+	for event in pygame.event.get() : # User did something
+		if event.type == pygame.QUIT : # If user clicked close
+			done = True 
+	
+	if event.type == pygame.KEYDOWN:
+		if event.key == pygame.K_LEFT:
+			snakex.append(snakex[len(snakex) - 1] - 5)
+			snakey.append(snakey[len(snakey) - 1])
+			snakex.pop(0)
+			snakey.pop(0)
+			print snakex, snakey
+			dir = 'left'
+
+		if event.key == pygame.K_RIGHT:
+			snakex.append(snakex[len(snakex) - 1] + 5)
+			snakey.append(snakey[len(snakey) - 1])
+			snakex.pop(0)
+			snakey.pop(0)
+			print snakex, snakey
+			dir = 'right'
+
+		if event.key == pygame.K_UP:
+			snakex.append(snakex[len(snakex) - 1])
+			snakey.append(snakey[len(snakey) - 1] - 5)
+			snakex.pop(0)
+			snakey.pop(0)
+			print snakex, snakey
+			dir = 'up'
+
+		if event.key == pygame.K_DOWN:
+			snakex.append(snakex[len(snakex) - 1])
+			snakey.append(snakey[len(snakey) - 1] + 5)
+			snakex.pop(0)
+			snakey.pop(0)
+			print snakex, snakey
+			dir = 'down'
+
+	else:
+		if dir == 'left':
+			snakex.append(snakex[len(snakex) - 1] - 5)
+			snakey.append(snakey[len(snakey) - 1])
+			snakex.pop(0)
+			snakey.pop(0)
+			print snakex, snakey
+			dir = 'left'
+
+		if dir == 'right':
+			snakex.append(snakex[len(snakex) - 1] + 5)
+			snakey.append(snakey[len(snakey) - 1])
+			snakex.pop(0)
+			snakey.pop(0)
+			print snakex, snakey
+			dir = 'right'
+
+		if dir == 'up':
+			snakex.append(snakex[len(snakex) - 1])
+			snakey.append(snakey[len(snakey) - 1] - 5)
+			snakex.pop(0)
+			snakey.pop(0)
+			print snakex, snakey
+			dir = 'up'
+
+		if dir == 'down':
+			snakex.append(snakex[len(snakex) - 1])
+			snakey.append(snakey[len(snakey) - 1] + 5)
+			snakex.pop(0)
+			snakey.pop(0)
+			print snakex, snakey
+			dir = 'down'
+
+
+	for i in range(len(snakex)):
+		pygame.draw.rect(screen, black, [snakex[i], snakey[i], 20, 20], 0)
+
+	pygame.display.flip()
+	clock.tick(20)
